@@ -13,12 +13,12 @@ class AuthController extends Controller
      public function register(Request $request){
 
         $registrationData = $request->all();
+
         $validate = Validator::make($registrationData, [
             'name' => 'required|max:60',
-            'email' => 'required|email:rfc,dns|unique:users',
             'username' => 'required|unique:users',
+            'email' => 'required|email:rfc,dns|unique:users',
             'password' => 'required',
-            'status'
         ]);
 
         // return error validation input
@@ -27,7 +27,7 @@ class AuthController extends Controller
 
         $registrationData['password'] = bcrypt($request->password); // enkripsi password
         $user = User::create($registrationData); // membuat user baru
-        $user->sendApiEmailVerificationNotification();
+        // $user->sendApiEmailVerificationNotification();
         return response([
             'message' => 'Register Success',
             'user' => $user
@@ -37,6 +37,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $loginData = $request->all();
+
         $validate = Validator::make($loginData,[
             'email' => 'required|email:rfc,dns',
             'password' => 'required'
@@ -44,15 +45,16 @@ class AuthController extends Controller
 
         if($validate->fails())
             return response(['message' => $validate->errors()],400); 
+
         if(!Auth::attempt($loginData))
             return response(['message' => 'Invalid Credentials'],401); 
         
         $user = Auth::user();
-        if ($user->email_verified_at == NULL) {
-            return response([
-                'message' => 'Please Verify Your Email'
-            ], 401); //Return error jika belum verifikasi email
-        }
+        // if ($user->email_verified_at == NULL) {
+        //     return response([
+        //         'message' => 'Please Verify Your Email'
+        //     ], 401); //Return error jika belum verifikasi email
+        // }
         $token = $user->createToken('Authentication Token')->accessToken; //generate token
         
         return response([

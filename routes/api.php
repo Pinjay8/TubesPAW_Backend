@@ -22,6 +22,7 @@ Route::post('register', 'Api\AuthController@register');
 Route::post('login', 'Api\AuthController@login');
 
 
+
 Route::group(['middleware' => 'auth:api'], function(){
 
     // BARANG
@@ -50,6 +51,8 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::put('toko/{id}', 'Api\TokoController@update');
     Route::delete('toko/{id}', 'Api\TokoController@destroy');
     Route::get('toko/{id}', 'Api\TokoController@showbyuser');
+
+    Route::post('logout', 'Api\AuthController@logout');
 });
 
 Route::get('email/verify/{id}', 'Api\EmailVerificationController@verify')->name('verificationapi.verify');

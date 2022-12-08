@@ -11,7 +11,7 @@ class Product extends Model
     use HasFactory;
 
      protected $fillable = [
-        'nama_barang', 'harga_barang'
+        'nama_barang', 'harga_barang','jumlah'
     ];
 
     public function getCreatedAtAttribute(){
