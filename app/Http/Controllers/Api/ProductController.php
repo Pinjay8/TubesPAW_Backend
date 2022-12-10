@@ -48,6 +48,7 @@ class ProductController extends Controller
         $validate = Validator::make($storeData, [
             'nama_barang' => 'required',
             'harga_barang' => 'required|numeric',
+            'jumlah' => 'required',
         ]); // membuat rule validasi input
 
         if($validate->fails())
@@ -97,7 +98,8 @@ class ProductController extends Controller
         $updateData = $request->all();
         $validate = Validator::make($updateData, [
             'nama_barang' => ['required', Rule::unique('products')->ignore($product)],
-            'harga_barang' => 'required|numeric'
+            'harga_barang' => 'required|numeric',
+            'jumlah' => 'required'
         ]);
 
         if($validate->fails())
@@ -105,6 +107,7 @@ class ProductController extends Controller
 
         $product->nama_barang = $updateData['nama_barang'];
         $product->harga_barang = $updateData['harga_barang'];
+        $product->jumlah= $updateData['jumlah'];
 
         if($product->save()){
             return response([
