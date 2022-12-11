@@ -62,9 +62,10 @@ class WishlistController extends Controller
 
     public function store(Request $request){
         $storeData = $request->all();
+
         $validate = Validator::make($storeData, [
-            'namaBarang_wish' => 'required',
-            'hargaBarang_wish' => 'required|numeric',
+            'namaBarangWish' => 'required',
+            'hargaBarangWish' => 'required|numeric',
         ]); // membuat rule validasi input
 
         if($validate->fails())
@@ -113,25 +114,25 @@ class WishlistController extends Controller
 
         $updateData = $request->all();
         $validate = Validator::make($updateData, [
-            'nama_barang' => ['required', Rule::unique('products')->ignore($wishlist)],
-            'harga_barang' => 'required|numeric'
+            'namaBarangWish' => ['required', Rule::unique('products')->ignore($wishlist)],
+            'hargaBarangWish' => 'required|numeric'
         ]);
 
         if($validate->fails())
             return response(['message' => $validate->errors()], 400);
 
-        $wishlist->nama_barang = $updateData['nama_barang'];
-        $wishlist->harga_barang = $updateData['harga_barang'];
+        $wishlist->namaBarangWish = $updateData['namaBarangWish'];
+        $wishlist->hargaBarangWish = $updateData['hargaBarangWish'];
 
         if($wishlist->save()){
             return response([
-                'message' => 'Update Product Success',
+                'message' => 'Update Wishlist Success',
                 'data' => $wishlist
             ], 200);
         }
 
         return response([
-            'message' => 'Update Product Failed',
+            'message' => 'Update Wishlist Failed',
             'data' => null,
         ], 400); // return message saat product gagal di edit
     }

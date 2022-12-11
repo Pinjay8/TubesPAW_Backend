@@ -40,7 +40,7 @@ class ProductController extends Controller
         return response([
             'message' => 'Product Not Found',
             'data' => null
-        ], 404); // return message saat data course tidka ditemukan
+        ], 404); // return message saat data course tidak ditemukan
     }
 
     public function store(Request $request){
