@@ -31,13 +31,13 @@ class TokoController extends Controller
 
         if(!is_null($toko)){
             return response([
-                'message' => 'Retrieve Product Success',
+                'message' => 'Retrieve Toko Success',
                 'data' => $toko
             ], 200);
         } // return data course yang ditemukan dalam bentuk json
 
         return response([
-            'message' => 'Product Not Found',
+            'message' => 'Toko Not Found',
             'data' => null
         ], 404); // return message saat data course tidka ditemukan
     }
@@ -56,7 +56,7 @@ class TokoController extends Controller
 
         $toko = Toko::create($storeData);
         return response([
-            'message' => 'Add Product Success',
+            'message' => 'Add Toko Success',
             'data' => $toko
         ], 200); // return data product baru dalam bentuk json
     }
@@ -73,7 +73,7 @@ class TokoController extends Controller
 
         if($toko->delete()){
             return response([
-                'message' => 'Delete Product Success',
+                'message' => 'Delete Toko Success',
                 'data' => $toko
             ], 200);
         } // return message saat berhasil menghapus data product
