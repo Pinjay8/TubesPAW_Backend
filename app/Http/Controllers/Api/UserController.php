@@ -26,6 +26,7 @@ class UserController extends Controller
         ], 404);
     }
 
+
     public function updateprofile(Request $request, $id){
         $user = User::find($id);
 

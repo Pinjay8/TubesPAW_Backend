@@ -47,6 +47,7 @@ class TokoController extends Controller
         $validate = Validator::make($storeData, [
             'nama_toko' => 'required',
             'alamat_toko' => 'required',
+            'jenis_toko' => 'required',
         ]); // membuat rule validasi input
 
         if($validate->fails())
@@ -95,8 +96,9 @@ class TokoController extends Controller
 
         $updateData = $request->all();
         $validate = Validator::make($updateData, [
-            'nama_toko' => ['required', Rule::unique('tokos')->ignore($toko)],
-            'alamat_toko' => 'required'
+            'nama_toko' => ['required'],
+            'alamat_toko' => 'required',
+            'jenis_toko' => 'required'
         ]);
 
         if($validate->fails())
@@ -104,6 +106,7 @@ class TokoController extends Controller
 
         $toko->nama_toko = $updateData['nama_toko'];
         $toko->alamat_toko = $updateData['alamat_toko'];
+        $toko->jenis_toko = $updateData['jenis_toko'];
 
         if($toko->save()){
             return response([

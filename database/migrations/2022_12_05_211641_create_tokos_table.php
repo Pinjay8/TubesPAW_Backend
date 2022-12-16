@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_toko');
             $table->string('alamat_toko');
+            $table->string('jenis_toko');
             $table->timestamps();
         });
     }

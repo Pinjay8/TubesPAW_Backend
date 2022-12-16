@@ -11,7 +11,7 @@ class Toko extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nama_toko', 'alamat_toko'
+        'nama_toko', 'alamat_toko','jenis_toko'
     ];
 
     public function getCreatedAtAttribute(){

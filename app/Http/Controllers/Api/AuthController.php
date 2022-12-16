@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Auth\Events\Registered;
+
 
 class AuthController extends Controller
 {
@@ -28,6 +30,8 @@ class AuthController extends Controller
         $registrationData['password'] = bcrypt($request->password); // enkripsi password
         $user = User::create($registrationData); // membuat user baru
         // $user->sendApiEmailVerificationNotification();
+        event(new Registered($user));
+        
         return response([
             'message' => 'Register Success',
             'user' => $user
@@ -50,11 +54,11 @@ class AuthController extends Controller
             return response(['message' => 'Invalid Credentials'],401); 
         
         $user = Auth::user();
-        // if ($user->email_verified_at == NULL) {
-        //     return response([
-        //         'message' => 'Please Verify Your Email'
-        //     ], 401); //Return error jika belum verifikasi email
-        // }
+        if ($user->email_verified_at == NULL) {
+            return response([
+                'message' => 'Please Verify Your Email'
+            ], 401); //Return error jika belum verifikasi email
+        }
         $token = $user->createToken('Authentication Token')->accessToken; //generate token
         
         return response([

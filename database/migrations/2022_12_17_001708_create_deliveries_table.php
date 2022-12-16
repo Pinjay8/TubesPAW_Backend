@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('wishlists', function (Blueprint $table) {
+        Schema::create('deliveries', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_barang');
-            $table->integer('id_user');
-            $table->string('namaBarangWish');
-            $table->string('hargaBarangWish');
+            $table->string('tujuanPengiriman');
+            $table->string('jenisPengiriman');
+            $table->string('lamaPengiriman');
+            $table->string('harga');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wishlists');
+        Schema::dropIfExists('deliveries');
     }
 };
