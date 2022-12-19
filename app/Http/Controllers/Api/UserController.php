@@ -27,6 +27,30 @@ class UserController extends Controller
     }
 
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $user = User::find($id);
+
+        if(!is_null($user)){
+            return response([
+                'message' => 'Retrieve User Success',
+                'data' => $user
+            ], 200);
+        }
+
+        return response([
+            'message' => 'User Not Found',
+            'data' => null
+        ], 404);
+    }
+
+
     public function updateprofile(Request $request, $id){
         $user = User::find($id);
 
@@ -62,5 +86,35 @@ class UserController extends Controller
             'message' => 'Update User Failed',
             'data' => null
         ],400);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $user = User::find($id);
+
+        if(is_null($user)){
+            return response([
+                'message' => 'User Not Found',
+                'data' => null
+            ], 404);
+        }
+
+        if($user->delete()){
+            return response([
+                'message' => 'Delete User Success',
+                'data' => $user
+            ], 200);
+        }
+
+        return response([
+            'message' => 'Delete User Failed',
+            'data' => null
+        ], 400);
     }
 }

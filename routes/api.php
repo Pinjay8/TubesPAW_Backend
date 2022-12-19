@@ -48,6 +48,9 @@ Route::group(['middleware' => 'auth:api'], function(){
     // USER (dapatin User && update user)
     Route::get('getuser/{id}','Api\UserController@getuser');
     Route::put('updateprofile/{id}','Api\UserController@updateprofile');
+    Route::delete('user/{id}', 'Api\UserController@destroy');
+    Route::get('user/{id}', 'Api\UserController@show');
+
 
 
     // Pengiriman
